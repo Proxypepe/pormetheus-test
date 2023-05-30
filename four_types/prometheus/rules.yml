@@ -1,0 +1,6 @@
+---
+groups:
+  - name: custom_rules
+    rules:
+      - record: path:http_requests_total_all:sum
+        expr: sum(http_requests_total)

@@ -1,0 +1,30 @@
+---
+version: "3"
+
+services:
+
+  myapp:
+    build: ./app
+    ports:
+    - 8080:8080
+
+  prometheus:
+    image: prom/prometheus:v2.41.0
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+
+  grafana:
+    image: grafana/grafana:9.3.2
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=devops123
+    volumes:
+      - ./grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - grafana:/var/lib/grafana
+
+volumes:
+  grafana:

@@ -1,0 +1,30 @@
+---
+groups: 
+  - name: test
+    rules:
+    - alert: PrometheusTargetMissing
+      expr: up == 0
+      for: 0m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Prometheus target missing (instance {{ $labels.instance }})"
+        description: "A Prometheus target has disappeared. An exporter might be crashed. VALUE = {{ $value }}  LABELS: {{ $labels }}"
+
+    - alert: CriticalFailureProcentWarning
+      expr: sum(http_requests_total{status='500'}) / sum(http_requests_total{status!='500'}) * 100 > 30
+      for: 1m
+      labels:
+        severity: warning
+      annotations:
+        summary: ""
+        description: ""
+
+    - alert: CriticalFailureProcentCritical
+      expr: sum(http_requests_total{status='500'}) / sum(http_requests_total{status!='500'}) * 100 > 80
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: ""
+        description: ""
