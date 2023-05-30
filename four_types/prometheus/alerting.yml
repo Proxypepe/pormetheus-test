@@ -17,8 +17,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: ""
-        description: ""
+        summary: "Lots of bad requests. Over 30 percent. Value = {{ $value }}"
+        description: "Lots of bad requests. Over 30 percent. Value = {{ $value }}"
 
     - alert: CriticalFailureProcentCritical
       expr: sum(http_requests_total{status='500'}) / sum(http_requests_total{status!='500'}) * 100 > 80
@@ -26,5 +26,5 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: ""
-        description: ""
+        summary: "Lots of bad requests. Over 80 percent. Value = {{ $value }}"
+        description: "Lots of bad requests. Over 80 percent. Value = {{ $value }}"
